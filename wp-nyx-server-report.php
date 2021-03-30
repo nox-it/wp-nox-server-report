@@ -3,9 +3,9 @@
     /**
      * Plugin Name: Server Report
      * Description: jSAS Development Server Report for WordPress instalations
-     * Plugin URI:  https://github.com/nox-it/wp-nox-server-report
-     * Author:      NOX IT
-     * Author URI:  https://github.com/nox-it
+     * Plugin URI:  https://github.com/nyx-it/wp-nyx-server-report
+     * Author:      NYX IT
+     * Author URI:  https://github.com/nyx-it
      * License:     GNU General Public License v2 or later
      * License URI: http://www.gnu.org/licenses/gpl-2.0.html
      * Version:     1.0.0
@@ -13,20 +13,20 @@
 
     defined('ABSPATH') or die();
 
-    defined('NOX_SR_TOKEN')         or define('NOX_SR_TOKEN',         '');
-    defined('NOX_SR_SITE_NAME')     or define('NOX_SR_SITE_NAME',     'NOX - Server Report');
-    defined('NOX_SR_SNAPSHOT_NAME') or define('NOX_SR_SNAPSHOT_NAME', 'nox-server-report');
+    defined('NYX_SR_TOKEN')         or define('NYX_SR_TOKEN',         '');
+    defined('NYX_SR_SITE_NAME')     or define('NYX_SR_SITE_NAME',     'NYX - Server Report');
+    defined('NYX_SR_SNAPSHOT_NAME') or define('NYX_SR_SNAPSHOT_NAME', 'nyx-server-report');
 
     /**
      * @return array
      *
      * @throws Exception
      */
-    function nox_sr_generate_report(): array
+    function nyx_sr_generate_report(): array
     {
         global $wp_version, $wpdb;
 
-        $snapshotName = NOX_SR_SNAPSHOT_NAME;
+        $snapshotName = NYX_SR_SNAPSHOT_NAME;
 
         $now = new DateTime('now', new DateTimeZone('America/Sao_Paulo'));
 
@@ -68,7 +68,7 @@
         $report[] = ['type' => 'db', 'name' => $dbName, 'version' => $dbVersion, 'description' => ''];
         $report[] = ['type' => 'snapshot', 'name' => 'Snapshot', 'version' => "{$snapshotName}-{$m}-{$y}", 'description' => ''];
 
-        $report = ['name' => NOX_SR_SITE_NAME, 'siteName' => get_bloginfo('name'), 'url' => site_url('/'), 'date' => date('d/m/Y H:i'), 'entries' => $report];
+        $report = ['name' => NYX_SR_SITE_NAME, 'siteName' => get_bloginfo('name'), 'url' => site_url('/'), 'date' => date('d/m/Y H:i'), 'entries' => $report];
 
         return $report;
     }
@@ -77,17 +77,17 @@
         'rest_api_init',
         static function () {
             register_rest_route(
-                'nox/v1',
+                'nyx/v1',
                 '/server-report',
                 [
                     'methods' => 'POST',
                     'callback' => static function (WP_REST_Request $request) {
-                        $token       = NOX_SR_TOKEN;
-                        $sendedToken = (string)$request->get_param('nox-sr-token');
+                        $token       = NYX_SR_TOKEN;
+                        $sendedToken = (string)$request->get_param('nyx-sr-token');
 
                         if (!empty($token) && $token === $sendedToken) {
                             return new WP_REST_Response(
-                                nox_sr_generate_report(),
+                                nyx_sr_generate_report(),
                                 200
                             );
                         }

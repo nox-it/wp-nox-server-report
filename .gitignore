@@ -65,3 +65,7 @@ Thumbs.db
 #############
 /generate-wp-package
 /plugin.json
+
+# Development Helpers
+/.dev
+

@@ -1,3 +1,3 @@
-# NOX / WordPress / Server Report
+# NYX / WordPress / Server Report
 
 jSAS Development Server Report for WordPress instalations.

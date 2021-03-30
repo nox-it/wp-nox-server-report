@@ -1,5 +1,5 @@
 === Server Report ===
-Contributors: noxit
+Contributors: nyx-solutions
 Requires at least: 5.4.1
 Tested up to: 5.4.1
 Requires PHP: 7.4.0
